@@ -8,14 +8,19 @@
 
 <script>
     var ws = new WebSocket('ws://tp51.workerman.demo.ning.com:2346');
-    ws.onopen = function (ev) {
+    ws.onopen = function () {
         alert('连接成功');
-        ws.send('ning');
+        var data = {
+            info:'ning'
+        };
+        // json数据
+        ws.send(JSON.stringify(data));
         alert('给服务端发送一个字符串：ning');
     };
 
-    ws.onmessage = function (ev) {
-        alert('收到服务端的消息：' + ev.data);
+    ws.onmessage = function (res) {
+        var data = JSON.parse(res.data);
+        alert('收到服务端的消息：' + data.info);
     }
 </script>
 </body>

@@ -19,7 +19,10 @@ class Worker extends Server
      */
     public function onMessage($connection,$data)
     {
-        $connection->send(json_encode($data));
+        // json数据
+        $data = json_decode($data);
+        $info = ['info'=>$data->info];
+        $connection->send(json_encode($info));
     }
 
     /**
@@ -32,6 +35,18 @@ class Worker extends Server
     public function onConnect($connection)
     {
         
+    }
+
+    /**
+     * Notes: 每个进程启动时会触发
+     * Author: ning
+     * Date: 2019/5/5
+     * Time: 16:59
+     * @param $worker
+     */
+    public function onWorkerStart($worker)
+    {
+
     }
 
     /**
@@ -60,8 +75,5 @@ class Worker extends Server
         echo "error $code $msg\n";
     }
 
-    public function onW()
-    {
-        
-    }
+
 }
